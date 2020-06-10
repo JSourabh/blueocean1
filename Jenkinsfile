@@ -15,11 +15,6 @@ pipeline {
                   sh 'tidy -q -e *.html'
               } 
          }
-         stage('Security Scan') {
-              steps { 
-                 aquaMicroscanner imageName: 'alpine:latest', notCompleted: 'exit 1', onDisallowed: 'fail'
-              }
-         }       
          stage('AWS Credentials') {
               steps {
                   withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'aws-static', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
